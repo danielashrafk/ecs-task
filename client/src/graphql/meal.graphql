@@ -1,0 +1,25 @@
+query GetMeals{
+  getAllMeals{
+   ...MealData
+  }
+}
+query GetMeal($day:WeekDays!){
+  getMeal(day:$day){
+    meal
+  }
+}
+
+mutation AddMeal($day:WeekDays!, $meal:String!){
+  
+  addMeal(day:$day, meal:$meal){
+    ...MealData
+  }
+}
+
+
+
+fragment MealData on Meal {
+    id
+    day
+	meal
+}

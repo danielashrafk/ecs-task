@@ -1,0 +1,23 @@
+query GetUsers{
+  getAllUsers{
+   ...UserData
+  }
+}
+query GetUser($id:ID!){
+  getUser(id:$id){
+   ...UserData
+  }
+}
+
+mutation AddUser($email:String!, $firstName:String!, $lastName:String!, $role:UserRole!){
+  
+  addUser(email:$email, firstName:$firstName, lastName:$lastName, role:$role){
+    ...UserData
+  }
+}
+
+fragment UserData on User {
+  id
+	email
+  role
+}

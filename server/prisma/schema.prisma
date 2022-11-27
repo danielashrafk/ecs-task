@@ -1,0 +1,49 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String           @id @default(uuid())
+  email     String           @unique
+  role      UserRole
+  firstName String
+  lastName  String
+  meals     MealAssignment[]
+}
+
+model Meal {
+  id    String           @id @default(uuid())
+  day   WeekDays
+  meal  String
+  users MealAssignment[]
+}
+
+model MealAssignment {
+  userId String
+  mealId String
+  user   User   @relation(fields: [userId], references: [id])
+  meal   Meal   @relation(fields: [mealId], references: [id])
+
+  @@id([userId, mealId])
+}
+
+enum UserRole {
+  GUEST
+  ADMIN
+}
+
+enum WeekDays {
+  Sunday
+  Monday
+  Tuesday
+  Wednesday
+  Thursday
+}

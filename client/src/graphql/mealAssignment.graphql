@@ -1,0 +1,22 @@
+
+mutation AddMealAssignment($userId:ID!, $meals:[MealInput]!){
+  
+  addMealAssignment(userId:$userId,meals:$meals){
+    ...MealAssignmentData
+  }
+}
+
+
+
+fragment MealAssignmentData on MealAssignment {
+  userId
+  mealId
+    user{
+      firstName
+      lastName
+    }
+		meal{
+      day
+      meal
+    }
+}

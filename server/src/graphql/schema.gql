@@ -1,0 +1,57 @@
+enum UserRole {
+  GUEST
+  ADMIN
+}
+
+enum WeekDays {
+  Sunday
+  Monday
+  Tuesday
+  Wednesday
+  Thursday
+}
+
+input MealInput {
+  id:ID!
+}
+
+type User {
+    id: ID!
+    email: String!
+    role: UserRole!
+    firstName: String!
+    lastName: String!
+    meals: [MealAssignment]!
+}
+
+type Meal {
+    id: ID!
+    day: WeekDays!
+    meal: String!
+    users: [MealAssignment]!
+}
+
+type MealAssignment {
+    userId: ID!
+    mealId: ID!
+    user: User
+    meal: Meal
+}
+
+type Query{
+    getAllUsers: [User]!
+    getUser(id:ID!):User!
+    getAllMeals: [Meal]!
+    getMeal(day:WeekDays!):[Meal]!
+    getAllMealAssignments:[MealAssignment]!
+    getMealAssignment(userId:ID!, mealId:ID!):MealAssignment!
+   
+}
+
+type Mutation{
+  addUser(email:String!, firstName:String!, lastName:String!, role:UserRole!):User!
+  addMeal(day:WeekDays!, meal:String!):Meal!
+  addMealAssignment(userId:ID!, meals:[MealInput]!):[MealAssignment]!
+  
+}
+
